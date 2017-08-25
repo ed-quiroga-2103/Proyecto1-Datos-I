@@ -5,27 +5,46 @@ import org.json.simple.JSONObject;
 
 public class FileCreator {
 	
-	JSONManager manager= new JSONManager("/home/eduardo/workspace/Proyecto 1/JSON-Files", "/home/eduardo/workspace/Proyecto 1/JSON-Files");
+	String path;	
+	
+	JSONManager manager;
 	
 	JSONObject obj;
 	
+	public FileCreator(String path){
+		this.path = path;
+		this.manager = new JSONManager(path, path);
+	}
+	
 	public static void main(String[] args) {
-		FileCreator kreator =  new FileCreator();
 		
-		kreator.createFile("Eduardo");
-		
-		kreator.addValue("Nombre", "Eduardo Quiroga Alfaro");
-		kreator.addValue("Universidad", "ITCR");
-		kreator.addValue("Residencia", "Cartago");
-		kreator.addValue("Cedula", "207900416");
-
-		kreator.commit();
-		
-		System.out.println("flag");
-			
 	}
 
 	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public JSONManager getManager() {
+		return manager;
+	}
+
+	public void setManager(JSONManager manager) {
+		this.manager = manager;
+	}
+
+	public JSONObject getObj() {
+		return obj;
+	}
+
+	public void setObj(JSONObject obj) {
+		this.obj = obj;
+	}
+
 	@SuppressWarnings("unchecked")
 	public void createFile(String filename){
 		
@@ -40,6 +59,12 @@ public class FileCreator {
 		
 		obj.put(arg, value);
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addInt(String arg, int value){
+		
+		obj.put(arg, value);
 	}
 	
 	public void commit(){

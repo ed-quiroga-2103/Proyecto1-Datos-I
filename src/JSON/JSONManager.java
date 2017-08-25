@@ -1,18 +1,15 @@
 package JSON;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import 	java.util.Iterator;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-class JSONManager {
+public class JSONManager {
 
 	
 	String pathWrite = "";
@@ -20,9 +17,9 @@ class JSONManager {
 	String pathRead = "";
 	
 	
-	JSONManager(){}
+	public JSONManager(){}
 
-	JSONManager(String pathWrite, String pathRead){
+	public JSONManager(String pathWrite, String pathRead){
 		this.pathRead = pathRead;
 		this.pathWrite = pathWrite;	
 	}
@@ -44,11 +41,6 @@ class JSONManager {
 	}
 
 	public static void main(String[] args){
-		JSONManager manager = new JSONManager();
-		
-		JSONArray array = (JSONArray) manager.getArg("196556060", "Companies");
-		
-		System.out.println(array.get(0));
 		
 	}
 	
@@ -83,13 +75,10 @@ class JSONManager {
 			return newJSON.get(arg);
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Bad path for the file");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
