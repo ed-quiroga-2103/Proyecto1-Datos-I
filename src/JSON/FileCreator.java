@@ -1,6 +1,7 @@
 package JSON;
 import java.io.IOException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class FileCreator {
@@ -13,7 +14,7 @@ public class FileCreator {
 	
 	public FileCreator(String path){
 		this.path = path;
-		this.manager = new JSONManager(path, path);
+		this.manager = new JSONManager(path);
 	}
 	
 	public static void main(String[] args) {
@@ -75,6 +76,11 @@ public class FileCreator {
 			System.out.println("Error");
 		}
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	public void addArray(String arg, JSONArray refs) {
+		obj.put(arg, refs);
 	}
 	
 }

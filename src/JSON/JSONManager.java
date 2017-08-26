@@ -19,9 +19,9 @@ public class JSONManager {
 	
 	public JSONManager(){}
 
-	public JSONManager(String pathWrite, String pathRead){
-		this.pathRead = pathRead;
-		this.pathWrite = pathWrite;	
+	public JSONManager(String path){
+		this.pathRead = path;
+		this.pathWrite = path;	
 	}
 	
 	public String getPathWrite() {
@@ -47,17 +47,10 @@ public class JSONManager {
 	public void write(JSONObject writeObj) throws IOException {
 		
 		JSONObject obj = writeObj;
-		
-		
-		String out = obj.toString();
-		
-		System.out.println(out);
-	
+					
 		try(FileWriter file = 
 				new FileWriter(pathWrite + "/" + obj.get("filename") + ".txt")){
 			file.write(obj.toString());
-			System.out.println("Copiado completado!");
-			System.out.println("\nJSON Object: " + obj);
 		}catch (FileNotFoundException e) {
 			System.out.println("Bad path for the file");
 		}		
