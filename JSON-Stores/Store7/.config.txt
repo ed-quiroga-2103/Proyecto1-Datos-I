@@ -1,1 +1,0 @@
-{"next":null,"filename":".config","prev":"\/home\/eduardo\/workspace\/Proyecto 1\/JSON-Stores\/Store6"}

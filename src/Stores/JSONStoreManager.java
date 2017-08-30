@@ -23,7 +23,7 @@ public class JSONStoreManager {
 	
 	private void init(){
 		
-		File config = new File("/home/eduardo/workspace/Proyecto 1/JSON-Stores/.config.txt");
+		File config = new File("/home/eduardo/workspace/Proyecto 1/JSON-Stores/.config.json");
 		
 		if(config.exists()){
 			
@@ -31,7 +31,7 @@ public class JSONStoreManager {
 			System.out.println("Loaded");
 		}
 		else{
-			
+						
 			FileCreator creator = new FileCreator(path+"/");
 			
 			creator.createFile(".config");
@@ -85,7 +85,7 @@ public class JSONStoreManager {
 
 	@SuppressWarnings("unchecked")
 	public void addStore(String name){
-		
+		System.out.println("adding");
 		JSONStore newStore = new JSONStore(name, path);
 		
 		for(int i = 0; i < this.getLength();i++){
@@ -95,70 +95,110 @@ public class JSONStoreManager {
 			}
 		}
 		
-			if(this.root == null){
+		System.out.println("Root: " + getRoot());
+		System.out.println("New root: "+ newStore.getPath());
+		
+		JSONManager current =  new JSONManager(getRoot());
+		
+		//Si el root es nulo
+		if(getRoot()==null){
+			System.out.println("Root is null");
+			
+			//Actualiza el root
+			setRoot(newStore.getPath());
+			
+			
+			//Actualiza el next y el prev de el nuevo nodo
+			newStore.setNext(null);
+			newStore.setPrevious(null);
+			
+			System.out.println("Updated root: "+getRoot());
+			
+			//Actualiza el length
+			this.length++;
+			
+			this.refs.add(name);
+			
+			//Sobreescribe el archivo
+			rw();
+			
+			return;
+		}
+
+		else{
+			
+			System.out.println("Next pointer: " + current.getArg(".config", "next"));
+			
+			System.out.println("Current root: " + current.getPathWrite());
+			
+			while(current.getArg(".config", "next") != (null)){
 				
-				this.root = newStore.getPath();
-				this.length++;
+				current =  new JSONManager((String) current.getArg(".config","next"));
 				
-				this.refs.add(name);
-				
-				newStore.setNext(null);
-				newStore.setPrevious(null);
-					
-				rw();
-				
-			}
-			else{
-				
-				String current = this.root;
-				
-				
-				while((String) new JSONManager(current).getArg(".config", "next")
-				!=null){
-					
-					current = (String) new JSONManager(current).getArg(".config", "next");
-					
-					
-				}
-				
-				String prev = (String) new JSONManager(current).getArg(".config", "prev");
-				
-				FileCreator manager = new FileCreator(current+"/");
-				
-				manager.createFile(".config");
-				
-				manager.addValue("next", newStore.getPath());
-				manager.addValue("prev", prev);
-				
-				manager.commit();
-	
-				
-				String next = (String) new JSONManager(current).getArg(".config", "next");
-				
-				FileCreator overwriter = new FileCreator(next);
-				
-				overwriter.createFile(".config");
-				
-				overwriter.addValue("next", null);
-				overwriter.addValue("prev", current);
-				
-				overwriter.commit();
-				
-				this.refs.add(name);
-				this.length++;
-				
-				rw();
-				
-				return;
+				System.out.println("In while; new current: " + (String)current.getPathRead());
 				
 			}
+			
+			
+			String next = newStore.getPath();
+			
+			String prev = current.getPathRead();
+			
+			System.out.println("New next: " + next);
+			
+			System.out.println("New prev: " + prev);
+			
+			
+			System.out.println("Final current: " + (String) current.getPathRead());
+			
+			
+			current.setArg(".config", "next", next);
+			System.out.println("Current 'next' pointer setted");
+			
+			
+			JSONManager manager = new JSONManager(newStore.getPath());
+			
+			
+			manager.setArg(".config", "prev", prev);
+			System.out.println("NewStore 'prev' path setted: "+ prev);
+			
+			
+			newStore.setNext(null);
+			System.out.println("NewStore 'next' path setted");
+			
+			
+			this.refs.add(name);
+			
+			this.length++;
+			
+			rw();	
+			
+		}
+		
+		
+		return;
+		
+		
+		
+		
 		
 		
 	}
-
-
-
-
+	
+	
+	
+	@SuppressWarnings("unused")
+	private boolean deleteComprobation(String name){
+	
+		for(int i = 0; i < this.getLength();i++){
+			if(this.refs.get(i).toString().equals(name)){
+				return true;
+			}
+		}
+	
+		return false;
+	
+	}
 //------------------------------------------------------------------------------------------------
 	public String getRoot() {
 		return root;
@@ -189,16 +229,16 @@ public class JSONStoreManager {
 
 	public static void main(String[] args) {
 		JSONStoreManager manager = new JSONStoreManager();
+					
+		/*manager.addStore("Store1");
 		
-		manager.addStore("Store1");
 		manager.addStore("Store2");
-		manager.addStore("Store3");
-		manager.addStore("Store4");
-		manager.addStore("Store5");
-		manager.addStore("Store6");
-		manager.addStore("Store7");
 		
-
+		manager.addStore("Store3");
+		*/
+		
+		manager.addStore("Store4");
+		
 		System.out.println(manager.getLength());
 	}
 

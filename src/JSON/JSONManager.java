@@ -40,7 +40,7 @@ public class JSONManager {
 		this.pathRead = pathRead;
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args){	
 		
 	}
 	
@@ -49,10 +49,10 @@ public class JSONManager {
 		JSONObject obj = writeObj;
 					
 		try(FileWriter file = 
-				new FileWriter(pathWrite + "/" + obj.get("filename") + ".txt")){
+				new FileWriter(pathWrite + "/" + obj.get("filename") + ".json")){
 			file.write(obj.toString());
 		}catch (FileNotFoundException e) {
-			System.out.println("Bad path for the file");
+			System.out.println("Bad path for the file writing:"+ pathWrite);
 		}		
 		
 	}
@@ -62,13 +62,13 @@ public class JSONManager {
 		
 		Object obj;
 		try {
-			obj = parser.parse(new FileReader(pathRead + "/"+ file +".txt"));
+			obj = parser.parse(new FileReader(pathRead + "/"+ file +".json"));
 			JSONObject newJSON = (JSONObject) obj;
-			
+						
 			return newJSON.get(arg);
 
 		} catch (FileNotFoundException e) {
-			System.out.println("Bad path for the file");
+			System.out.println("Bad path for the file reading: "+ pathRead);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -76,9 +76,34 @@ public class JSONManager {
 		}
 		return null;
 		
-		
+	
 		
 		
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public void setArg(String file, String arg, String value){
+		JSONParser parser = new JSONParser();
+		
+		Object obj;
+		try {
+			obj = parser.parse(new FileReader(pathRead + "/"+ file +".json"));
+			JSONObject newJSON = (JSONObject) obj;
+			
+			newJSON.put(arg, value);
+			
+			write(newJSON);
+			
+			
+							
+		}catch (FileNotFoundException e) {
+			System.out.println("Bad path for the file setting: " + pathRead);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return;	
+	}
+	
 }

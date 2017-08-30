@@ -3,6 +3,7 @@ package Stores;
 import java.io.File;
 
 import JSON.FileCreator;
+import JSON.JSONManager;
 
 public class JSONStore {
 
@@ -48,15 +49,11 @@ public class JSONStore {
 
 
 	public void setNext(String next) {
-		FileCreator creator = new FileCreator(path+name+"/");
+
+		JSONManager manager = new JSONManager(path);
 		
-		creator.createFile(".config");
+		manager.setArg(".config", "next", next);
 		
-		creator.addValue("next", next);
-		
-		creator.addValue("prev", previous);
-		
-		creator.commit();
 	}
 
 
@@ -68,15 +65,9 @@ public class JSONStore {
 
 
 	public void setPrevious(String previous) {
-		FileCreator creator = new FileCreator(path+name+"/");
+		JSONManager manager = new JSONManager(path);
 		
-		creator.createFile(".config");
-		
-		creator.addValue("next", next);
-		
-		creator.addValue("prev", previous);
-		
-		creator.commit();
+		manager.setArg(".config", "prev", previous);
 	}
 
 

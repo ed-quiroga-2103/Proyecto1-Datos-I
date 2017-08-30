@@ -1,1 +1,0 @@
-{"path":"\/home\/eduardo\/workspace\/Proyecto 1\/JSON-Stores\/","filename":".config","refs":["Store1","Store2","Store3","Store4","Store5","Store6","Store7"],"root":"\/home\/eduardo\/workspace\/Proyecto 1\/JSON-Stores\/Store1","length":7}
