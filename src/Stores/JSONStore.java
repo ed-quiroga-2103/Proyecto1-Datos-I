@@ -2,6 +2,8 @@ package Stores;
 
 import java.io.File;
 
+import org.json.simple.JSONArray;
+
 import JSON.FileCreator;
 import JSON.JSONManager;
 
@@ -11,6 +13,9 @@ public class JSONStore {
 	private String previous;
 	private String path;
 	private String name;
+	private String foreign;
+	private JSONArray refs;
+	
 	
 	JSONStore(String name, String path){
 		
@@ -21,7 +26,11 @@ public class JSONStore {
 		this.createFolder();
 		
 	}
-	
+	JSONStore(String name, String path, String foreign){
+		this.name = name;
+		this.path = path;
+		this.foreign = foreign;
+	}
 	
 	
 	private void createFolder() {
@@ -33,6 +42,8 @@ public class JSONStore {
 		creator.createFile(".config");
 		
 		creator.addValue("next", null);
+		
+		creator.addArray("refs", refs);
 		
 		creator.addValue("prev", null);
 		

@@ -187,7 +187,47 @@ public class JSONStoreManager {
 	
 	
 	
-	@SuppressWarnings("unused")
+	public void deleteStore(String name){
+		
+		if(deleteComprobation(name)){
+			
+			JSONManager current =  new JSONManager(this.path+"/"+name);
+			
+			String next = (String) current.getArg(".config", "next");
+			String prev = (String) current.getArg(".config", "prev");
+			
+			File[] files = new File(this.path+"/"+name).listFiles();
+			
+			for(int i = 0; i < files.length; i++){
+				
+				files[i].delete();
+				
+			}
+			new File(this.path+"/"+name).delete();
+			
+			current = new JSONManager(next);
+			
+			current.setArg(".config", "prev", prev);
+			
+			current = new JSONManager(prev);
+			
+			current.setArg(".config", "next", next);
+			
+			
+			new File(this.path+"/"+name).delete();
+			
+			this.length--;
+			
+			this.refs.remove(name);
+			
+			rw();
+			
+			
+		}
+		
+		
+	}
+	
 	private boolean deleteComprobation(String name){
 	
 		for(int i = 0; i < this.getLength();i++){
@@ -230,14 +270,17 @@ public class JSONStoreManager {
 	public static void main(String[] args) {
 		JSONStoreManager manager = new JSONStoreManager();
 					
-		/*manager.addStore("Store1");
+		manager.addStore("Store1");
 		
 		manager.addStore("Store2");
 		
 		manager.addStore("Store3");
-		*/
 		
 		manager.addStore("Store4");
+		
+		manager.addStore("Store5");
+		
+		manager.deleteStore("Store2");
 		
 		System.out.println(manager.getLength());
 	}

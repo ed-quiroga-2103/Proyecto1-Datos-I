@@ -61,6 +61,11 @@ public class FileCreator {
 		obj.put(arg, value);
 		
 	}
+	@SuppressWarnings({ "unchecked", "unused" })
+	public void addObject(String arg, Object object) {
+		obj.put(arg, object);
+
+	}
 	
 	@SuppressWarnings("unchecked")
 	public void addInt(String arg, int value){
