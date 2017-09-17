@@ -14,8 +14,8 @@ public class JSONStore {
 	private String path;
 	private String name;
 	private String foreign;
-	private JSONArray refs;
-	
+	private JSONArray refs = new JSONArray();
+	private String root;
 	
 	JSONStore(String name, String path){
 		
@@ -42,12 +42,18 @@ public class JSONStore {
 		creator.createFile(".config");
 		
 		creator.addValue("next", null);
-		
-		creator.addArray("refs", refs);
-		
+				
 		creator.addValue("prev", null);
 		
+		creator.addValue("root", root);
+		
+		creator.addArray("refs", this.refs);
+		
+		
 		creator.commit();
+		
+		
+		
 		
 	}
 

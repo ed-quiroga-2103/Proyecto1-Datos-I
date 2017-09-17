@@ -12,6 +12,7 @@ public class JSONStoreManager {
 	private String root;
 	private int length;
 	private JSONArray refs = new JSONArray();
+	
 	private String path = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
 	
 	public JSONStoreManager() {
@@ -86,7 +87,6 @@ public class JSONStoreManager {
 	@SuppressWarnings("unchecked")
 	public void addStore(String name){
 		System.out.println("adding");
-		JSONStore newStore = new JSONStore(name, path);
 		
 		for(int i = 0; i < this.getLength();i++){
 			if(this.refs.get(i).toString().equals(name)){
@@ -94,6 +94,8 @@ public class JSONStoreManager {
 				return;
 			}
 		}
+		JSONStore newStore = new JSONStore(name, path);
+
 		
 		System.out.println("Root: " + getRoot());
 		System.out.println("New root: "+ newStore.getPath());
@@ -250,6 +252,14 @@ public class JSONStoreManager {
 
 	public int getLength() {
 		return length;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public void setLength(int length) {

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class JSONManager {
@@ -106,5 +107,28 @@ public class JSONManager {
 		}
 		return;	
 	}
-	
+	@SuppressWarnings("unchecked")
+	public void setArg(String file, String arg, JSONArray value){
+		JSONParser parser = new JSONParser();
+		
+		Object obj;
+		try {
+			obj = parser.parse(new FileReader(pathRead + "/"+ file +".json"));
+			JSONObject newJSON = (JSONObject) obj;
+			
+			newJSON.put(arg, value);
+			
+			write(newJSON);
+			
+			
+							
+		}catch (FileNotFoundException e) {
+			System.out.println("Bad path for the file setting: " + pathRead);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return;	
+	}
 }

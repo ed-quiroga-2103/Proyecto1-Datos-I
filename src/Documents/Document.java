@@ -1,5 +1,7 @@
 package Documents;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,6 +14,8 @@ import java.lang.Object;
 
 import JSON.FileCreator;
 import JSON.JSONManager;
+import Stores.JSONStore;
+import Stores.JSONStoreManager;
 
 public class Document {
 	
@@ -23,89 +27,156 @@ public class Document {
 	
 	private JSONObject objs = new JSONObject();
 	
-	private Document next;
-	private Document prev;
+	private String next;
+	private String prev;
 	
 	private JSONArray refs;
 	
-	Document(String name, String path){
-		
-		this.primary = name;
+	Document(String path){
+
 		this.foreign = (String) new JSONManager(path).getArg(".config", "filename");
+		
 		this.path = path;
 		
 		
 	}
+	Document(){
+	}
+		
+	private void load() {
+		
+		String config = this.path;
+		
+		JSONManager manager =  new JSONManager(config);
+		
+		
+		this.refs = (JSONArray) manager.getArg(".config", "refs");
+		
+	}
+
+	
 	
 	//Debe ser movida a un manager
-	private void createDoc(String name){
+	@SuppressWarnings("unchecked")
+	public void createDoc(String name) throws FileNotFoundException, IOException, ParseException{
+		
+		load();
+		
+		System.out.println(this.refs);
 		
 		FileCreator creator = new FileCreator(this.path);
 		
 		creator.createFile(name);
 		
-		creator.addArray(".config", this.refs);
+		
 		creator.addInt("length", length);
 		creator.addValue("primary", name);
 		creator.addValue("foreign", foreign);
-		creator.addObject("next", next);
-		creator.addObject("prev", prev);
+		
 		creator.addObject("objs", objs);
-		
-		creator.commit();
-		
-	}
-	
-	//Debe ser movida a un manager
-	@SuppressWarnings("unchecked")
-	public void addToObjs(String name, JSONObject obj){
-		
-		System.out.println(this.path+"/"+this.primary);
 		
 		
 		JSONManager manager = new JSONManager(this.path);
 		
 		JSONParser parser = new JSONParser();
 		
-		try {
+		Object obj;
+		
+		obj = parser.parse(new FileReader(this.path+"/.config.json"));
+		JSONObject newJSON = (JSONObject) obj;
+		
+		
+		System.out.println(newJSON.get("refs"));
+		
+		
+		JSONArray newRefs= (JSONArray) newJSON.get("refs");
+		
+		
+		System.out.println(newRefs.toString());
+
+		
+		
+		try{
 			
-			System.out.println(manager.getArg("Doc1", "objs").toString());
+			System.out.println("flag");
 			
-			Object objeto = parser.parse(manager.getArg("Doc1", "objs").toString());
-			
-			JSONObject newJSON = (JSONObject) objeto;
-			
-			objs = newJSON;
-			
-			if(objs.get(name)==null){
-			
-			System.out.println(objs);
-			
-			objs.put(name, obj);
-			
-			
-			manager.setArg("Doc1", "objs", objs.toJSONString());
-			
-			
-			System.out.println(manager.getArg("Doc1", "objs"));
-			
+			for(int i = 0; i < newRefs.size();i++){
+			System.out.println(newRefs.get(i));		
+				if(newRefs.get(i).toString().equals(name)){
+					
+					System.out.println("Carpeta existente");
+					
+					System.out.println("done");
+					
+					return;
+				}
 			}
-			else{
-				
-				System.out.println("El elemento ya existe");
-				
-			}
+		
+			System.out.println("in try");
+			newRefs.get(0);
+			creator.addValue("root", (String) newRefs.get(0));
+			
+			System.out.println("1");
+			next= (String) newRefs.get(0);
+			prev= (String) newRefs.get(newRefs.size()-1);
+			
+			System.out.println("5");
+			
+			creator.addObject("next", next);			
+			creator.addObject("prev", prev);
+
+			manager.setArg((String) newRefs.get(newRefs.size()-1), "next", name);
+			
+			manager.setArg((String) newRefs.get(0), "prev", name);
+			
+
+			creator.commit();
+
+			System.out.println(newRefs.toString());
 			
 			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			newRefs.add(name);
+			
+
+			
+			manager.setArg(".config", "refs", newRefs);
+						
+			System.out.println("done");
+			
+			return;
+				
+			
+		}
+		catch(Exception e){
+		
+			System.out.println("ROOT");
+			
+			creator.addObject("next", next);			
+			creator.addObject("prev", prev);
+			
+			creator.commit();
+
+			
+			System.out.println(newRefs.toString());
+			
+			newRefs.add(name);
+			
+			manager.setArg(".config", "refs", newRefs);
+			
+			System.out.println(newRefs.toString());
+			
+			return;
+			
 		}
 		
+		
+		
+		
+		
+		
+		
+		
 	}
-	
-	
-	
 	
 	
 //---------------------------------------------------------------------------------------------------------
@@ -113,17 +184,102 @@ public class Document {
 
 	
 	public static void main(String[] args) {
-		Document doc1 = new Document("Doc1","/home/eduardo/workspace/Proyecto 1/JSON-Stores/Store1");
-
-		doc1.createDoc("Doc1");
 		
-		System.out.println(doc1.getPrimary());
+		try {
+			
+			Document doc = new Document();
+			
+			doc.newDoc("Store1", "Doc3");
+			
+			
+			
+			
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
-		doc1.addToObjs("Objeto4", new JSONObject());
+
+	public void newDoc(String storeName, String docName) throws FileNotFoundException, IOException, ParseException{
+		
+		JSONStoreManager manager = new JSONStoreManager();
+		
+		manager.addStore(storeName);
+		
+		JSONManager man = new JSONManager(manager.getPath()+"/"+storeName);
+		
+		System.out.println(man.getArg(".config", "refs"));
+		
+		Document doc1 = new Document(manager.getPath()+storeName);
+				
+		doc1.createDoc(docName);
+		
+		System.out.println();
+		
 		
 	}
 
+	
+	public void deleteDoc(String storeName, String docName) throws FileNotFoundException, IOException, ParseException{
+		
+		
+		
+		if(new File(new JSONStoreManager().getPath() + storeName + "/" + docName+".json").exists()){
+			
+			JSONManager manager = new JSONManager(this.path);
+			
+			JSONParser parser = new JSONParser();
+			
+			Object obj;
+			
+			obj = parser.parse(new FileReader(this.path+"/.config.json"));
+			JSONObject newJSON = (JSONObject) obj;
+			
+			
+			String newNext = (String) manager.getArg(docName, "next");
+			
+			String newPrev = (String) manager.getArg(docName, "prev");
+			
+			manager.setArg(newNext, "prev", newPrev);
+			
+			manager.setArg(newPrev, "next", newNext);
+			
+			
+			
+			System.out.println(newJSON.get("refs"));
+			
+			
+			JSONArray newRefs= (JSONArray) newJSON.get("refs");
+			
+			newRefs.remove(docName);
+			
+			manager.setArg(".config", "refs", newRefs);
+			
+			
+			new File(new JSONStoreManager().getPath() + storeName + "/" + docName+".json").delete();
+		
+		System.out.println("deleted");
+		}else{System.out.println("no file");}
+		
+	}
+	
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//--------------------------------------------------------------------------------------------------------
+	
 	public String getPrimary() {
 		return primary;
 	}
@@ -177,22 +333,22 @@ public class Document {
 	}
 
 
-	public Document getNext() {
+	public String getNext() {
 		return next;
 	}
 
 
-	public void setNext(Document next) {
+	public void setNext(String next) {
 		this.next = next;
 	}
 
 
-	public Document getPrev() {
+	public String getPrev() {
 		return prev;
 	}
 
 
-	public void setPrev(Document prev) {
+	public void setPrev(String prev) {
 		this.prev = prev;
 	}
 
