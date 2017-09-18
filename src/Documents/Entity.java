@@ -5,9 +5,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.Object;
 
 import JSON.JSONManager;
+import Stores.JSONStoreManager;
 
 public class Entity {
 	
@@ -15,22 +18,29 @@ public class Entity {
 		String path;
 		String primary;
 		String foreign;
+		String next;
+		
 		
 		String refs;
 	
 		JSONObject obj = new JSONObject();
 		
-		Entity(String name, Document foreign){
+		@SuppressWarnings("unchecked")
+		public Entity(String name, String foreign, String storeName){
 			
-			this.path = foreign.getPath();
+			this.path =(String) new JSONStoreManager().getPath()+ storeName;
+		
+			
 			
 			this.primary = name;
 			
-			this.foreign = foreign.getPrimary();
+			this.foreign = foreign;
 			
-			
-			
-			
+			obj.put("path", this.path);
+			obj.put("primary", this.primary);
+			obj.put("foreign", this.foreign);
+			obj.put("next", this.next);
+						
 		}
 	
 		@SuppressWarnings("unchecked")
@@ -62,39 +72,82 @@ public class Entity {
 		}
 	
 		@SuppressWarnings("unchecked")
-		public void addToObjs(String name){
+		public void addToObjs(){
 			
-			System.out.println(this.path+"/"+this.primary);
+			String name = this.primary;
+			
+			
 			
 			JSONObject objs;
 			
 			JSONManager manager = new JSONManager(this.path);
 			
+			
 			JSONParser parser = new JSONParser();
 			
 			try {
 				
-				System.out.println(manager.getArg(this.foreign, "objs").toString());
+			
 				
-				Object objeto = parser.parse((String) manager.getArg(this.foreign, "objs").toString());
+				Object objeto = parser.parse(manager.getArg(this.foreign, "objs").toString());
+				
 				
 				JSONObject newJSON = (JSONObject) objeto;
 				
 				objs = newJSON;
 				
-					
-				System.out.println(objs);
+				
+
+				
 				
 				objs.put(name, obj);
 				
 				
+				
+				//------------
+				
+				System.out.println(manager.getArg(this.foreign, "root"));
+				if(manager.getArg(this.foreign, "root") == null){
+					
+					manager.setArg(this.foreign , "root", name);
+					
+					
+				}else{
+					
+					JSONObject current = (JSONObject) parser.parse(newJSON.get((String) 
+							manager.getArg(this.foreign, "root")).toString());
+					
+					while(current.get("next")!= null){
+						
+						System.out.println("in while");
+						
+						System.out.println(current.get("primary"));
+						
+						System.out.println(current.get("next"));
+						
+						String string = newJSON.get(current.get("next")).toString();
+						
+						
+						JSONObject temp = (JSONObject) parser.parse(string);
+						
+						
+						
+						current = temp;
+						
+						
+					}
+					
+					current.put("next", name);
+					
+					objs.put(current.get("primary"), current);
+					
+					
+				}
+				
+				
 				manager.setArg(this.foreign, "objs", objs.toJSONString());
 				
-				
-				System.out.println(manager.getArg(this.foreign, "objs"));
-				
-				
-				
+						
 				
 				
 			} catch (ParseException e) {
@@ -108,18 +161,21 @@ public class Entity {
 	
 	//-----------------------------------------------------------------------------------------------------
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
 		
-		Document doc1 = new Document("/home/eduardo/workspace/Proyecto 1/JSON-Stores/Store3");
+		JSONStoreManager manager =  new JSONStoreManager();
 		
-		
-		
-		System.out.println(doc1.getPath());
+		manager.addStore("Store1");
 		
 		
-		//doc1.createDoc("Doc1");
+		Document doc1 = new Document();
 		
-		Entity obj1 = new Entity("Carros", doc1);
+		doc1.newDoc("Store1", "Carros");
+		
+		
+		//Sin .json
+		Entity obj1 = new Entity("asahfj", "Carros", "Store1");
+		
 		
 		System.out.println(obj1.foreign);
 		
@@ -131,7 +187,7 @@ public class Entity {
 
 		
 		
-		obj1.addToObjs("Carros");
+		obj1.addToObjs();
 		
 	}
 

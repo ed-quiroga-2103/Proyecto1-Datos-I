@@ -40,7 +40,7 @@ public class Document {
 		
 		
 	}
-	Document(){
+	public Document(){
 	}
 		
 	private void load() {
@@ -58,7 +58,7 @@ public class Document {
 	
 	//Debe ser movida a un manager
 	@SuppressWarnings("unchecked")
-	public void createDoc(String name) throws FileNotFoundException, IOException, ParseException{
+	private void createDoc(String name) throws FileNotFoundException, IOException, ParseException{
 		
 		load();
 		
@@ -72,6 +72,7 @@ public class Document {
 		creator.addInt("length", length);
 		creator.addValue("primary", name);
 		creator.addValue("foreign", foreign);
+		
 		
 		creator.addObject("objs", objs);
 		
@@ -114,7 +115,6 @@ public class Document {
 		
 			System.out.println("in try");
 			newRefs.get(0);
-			creator.addValue("root", (String) newRefs.get(0));
 			
 			System.out.println("1");
 			next= (String) newRefs.get(0);
@@ -184,20 +184,6 @@ public class Document {
 
 	
 	public static void main(String[] args) {
-		
-		try {
-			
-			Document doc = new Document();
-			
-			doc.newDoc("Store1", "Doc3");
-			
-			
-			
-			
-		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
 	}
