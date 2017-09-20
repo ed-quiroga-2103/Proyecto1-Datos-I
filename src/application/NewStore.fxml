@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="114.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane prefHeight="200.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <center>
-      <GridPane minWidth="-Infinity" prefHeight="80.0" prefWidth="162.0">
+      <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0" vgap="10.0">
          <rowConstraints>
-            <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" />
-            <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="16.0" />
+            <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="36.0" />
+            <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="11.0" />
             <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="16.0" />
          </rowConstraints>
          <columnConstraints>
@@ -31,20 +31,22 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <Label text="Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label text="Store" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
             <TextField fx:id="newStoreName" prefHeight="26.0" prefWidth="205.0" GridPane.columnIndex="1" />
             <Label fx:id="done" alignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" text="Document" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField fx:id="newDocName" prefHeight="26.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="34.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="33.0" prefWidth="400.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="exit" mnemonicParsing="false" onAction="#newStore" text="Create" />
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#commitButton" text="Create" />
          </children>
       </HBox>
    </bottom>

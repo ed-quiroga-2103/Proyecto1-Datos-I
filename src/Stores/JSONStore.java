@@ -13,7 +13,6 @@ public class JSONStore {
 	private String previous;
 	private String path;
 	private String name;
-	private String foreign;
 	private JSONArray refs = new JSONArray();
 	private String root;
 	
@@ -29,10 +28,11 @@ public class JSONStore {
 	JSONStore(String name, String path, String foreign){
 		this.name = name;
 		this.path = path;
-		this.foreign = foreign;
 	}
 	
-	
+	/*
+	 * Crea el archivo de configuracion para los JSON Stores
+	 */
 	private void createFolder() {
 		
 		new File(path+name).mkdir();

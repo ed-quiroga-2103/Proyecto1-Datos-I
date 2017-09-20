@@ -44,7 +44,9 @@ public class JSONManager {
 	public static void main(String[] args){	
 		
 	}
-	
+	/*
+	 * Guarda el archivo en memoria
+	 */
 	public void write(JSONObject writeObj) throws IOException {
 		
 		JSONObject obj = writeObj;
@@ -57,7 +59,9 @@ public class JSONManager {
 		}		
 		
 	}
-
+	/*
+	 * Busca un argumento de el archivo JSON indicado
+	 */
 	public Object getArg(String file, String arg){	
 		JSONParser parser = new JSONParser();
 		
@@ -81,8 +85,9 @@ public class JSONManager {
 		
 		
 	}
-	
-	
+	/*
+	 * Modifica un argumento del archivo JSON
+	 */
 	@SuppressWarnings("unchecked")
 	public void setArg(String file, String arg, String value){
 		JSONParser parser = new JSONParser();
@@ -107,6 +112,9 @@ public class JSONManager {
 		}
 		return;	
 	}
+	/*
+	 * Modifica un argumento del archivo JSON
+	 */
 	@SuppressWarnings("unchecked")
 	public void setArg(String file, String arg, JSONArray value){
 		JSONParser parser = new JSONParser();

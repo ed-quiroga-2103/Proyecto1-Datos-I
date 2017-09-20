@@ -42,35 +42,45 @@ public class Entity {
 			obj.put("next", this.next);
 						
 		}
-	
+		/**
+		 * Añade una variable al JSON
+		 */
 		@SuppressWarnings("unchecked")
 		public void addVar(String name, String var){
 			
 			obj.put(name, var);	
 			
 		}
-		
+		/**
+		 * Añade una variable al JSON
+		 */
 		@SuppressWarnings("unchecked")
 		public void addVar(String name, int var){
 					
 			obj.put(name, var);	
 							
 		}
-		
+		/**
+		 * Añade una variable al JSON
+		 */
 		@SuppressWarnings("unchecked")
 		public void addVar(String name, boolean var){
 			
 			obj.put(name, var);	
 			
 		}
-		
+		/**
+		 * Añade una variable al JSON
+		 */
 		@SuppressWarnings("unchecked")
 		public void addVar(String name, float var){
 			
 			obj.put(name, var);	
 			
 		}
-	
+		/**
+		 * Añade el archivo a los documentos
+		 */
 		@SuppressWarnings("unchecked")
 		public void addToObjs(){
 			
@@ -84,6 +94,8 @@ public class Entity {
 			
 			
 			JSONParser parser = new JSONParser();
+			
+			System.out.println(this.path);
 			
 			try {
 				
@@ -163,31 +175,7 @@ public class Entity {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
 		
-		JSONStoreManager manager =  new JSONStoreManager();
 		
-		manager.addStore("Store1");
-		
-		
-		Document doc1 = new Document();
-		
-		doc1.newDoc("Store1", "Carros");
-		
-		
-		//Sin .json
-		Entity obj1 = new Entity("asahfj", "Carros", "Store1");
-		
-		
-		System.out.println(obj1.foreign);
-		
-		obj1.addVar("Puertas", 4);
-		obj1.addVar("Ventanas", 4);
-		obj1.addVar("Marca", "Toyota");
-		obj1.addVar("Modelo", "Yaris");
-		obj1.addVar("Owner", "Eduardo Quiroga");
-
-		
-		
-		obj1.addToObjs();
 		
 	}
 

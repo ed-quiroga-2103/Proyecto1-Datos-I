@@ -21,7 +21,9 @@ public class JSONStoreManager {
 		
 		
 	}
-	
+	/*
+	 *Busca el archivo .config y lo carga. Si el archivo no existe, lo crea. 
+	 */
 	private void init(){
 		
 		File config = new File("/home/eduardo/workspace/Proyecto 1/JSON-Stores/.config.json");
@@ -53,7 +55,9 @@ public class JSONStoreManager {
 			load();
 		}
 	}
-	
+	/*
+	 *Sobreescribe el archivo .config con datos actualizados
+	 */
 	private void rw(){
 		FileCreator creator = new FileCreator(path+"/");
 		
@@ -70,7 +74,9 @@ public class JSONStoreManager {
 		
 		creator.commit();
 	}
-	
+	/*
+	 * Carga el archivo .config
+	 */
 	private void load() {
 		
 		String config = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
@@ -83,7 +89,9 @@ public class JSONStoreManager {
 		this.refs = (JSONArray) manager.getArg(".config", "refs");
 		
 	}
-
+	/*
+	 * Crea un Store nuevo
+	 */
 	@SuppressWarnings("unchecked")
 	public void addStore(String name){
 		System.out.println("adding");
@@ -186,9 +194,9 @@ public class JSONStoreManager {
 		
 		
 	}
-	
-	
-	
+	/*
+	 * Elimina el Store con el nombre indicado
+	 */
 	public void deleteStore(String name){
 		
 		if(deleteComprobation(name)){
@@ -229,7 +237,9 @@ public class JSONStoreManager {
 		
 		
 	}
-	
+	/*
+	 * Comprueba si el Store existe para eliminarlo
+	 */
 	private boolean deleteComprobation(String name){
 	
 		for(int i = 0; i < this.getLength();i++){
@@ -278,21 +288,7 @@ public class JSONStoreManager {
 
 
 	public static void main(String[] args) {
-		JSONStoreManager manager = new JSONStoreManager();
-					
-		manager.addStore("Store1");
 		
-		manager.addStore("Store2");
-		
-		manager.addStore("Store3");
-		
-		manager.addStore("Store4");
-		
-		manager.addStore("Store5");
-		
-		manager.deleteStore("Store2");
-		
-		System.out.println(manager.getLength());
 	}
 
 }

@@ -45,7 +45,9 @@ public class FileCreator {
 	public void setObj(JSONObject obj) {
 		this.obj = obj;
 	}
-
+	/*
+	 * Crea un nuevo archivo
+	 */
 	@SuppressWarnings("unchecked")
 	public void createFile(String filename){
 		
@@ -54,25 +56,34 @@ public class FileCreator {
 		obj.put("filename", filename);
 		
 	} 
-	
+	/*
+	 * Agrega valores al archivo creado
+	 */
 	@SuppressWarnings("unchecked")
 	public void addValue(String arg, String value){
 		
 		obj.put(arg, value);
 		
 	}
+	/*
+	 * Agrega objetos al archivo creado
+	 */
 	@SuppressWarnings({ "unchecked", "unused" })
 	public void addObject(String arg, Object object) {
 		obj.put(arg, object);
 
 	}
-	
+	/*
+	 * Agrefa ints al archivo creado
+	 */
 	@SuppressWarnings("unchecked")
 	public void addInt(String arg, int value){
 		
 		obj.put(arg, value);
 	}
-	
+	/*
+	 * Guarda el archivo creado en memoria
+	 */
 	public void commit(){
 		
 		try {
@@ -82,7 +93,9 @@ public class FileCreator {
 		}
 		
 	}
-
+	/*
+	 * Agrega un JSONArray en el archivo
+	 */
 	@SuppressWarnings("unchecked")
 	public void addArray(String arg, JSONArray refs) {
 		obj.put(arg, refs);

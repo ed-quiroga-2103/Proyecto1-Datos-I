@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <left>
       <TreeView prefHeight="171.0" prefWidth="118.0" BorderPane.alignment="CENTER" />
    </left>
@@ -27,17 +27,28 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints maxHeight="52.0" minHeight="0.0" prefHeight="25.0" />
+                <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="33.0" />
+                  <RowConstraints maxHeight="84.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="130.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="label0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Nombre" />
-                  <Label text="Tipo" GridPane.rowIndex="1" />
-                  <Label text="Requerido" GridPane.rowIndex="2" />
-                  <CheckBox fx:id="checkbox" mnemonicParsing="false" text="True" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="field" promptText="Name" GridPane.columnIndex="1" />
+                  <Label fx:id="label0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Nombre" GridPane.rowIndex="3" />
+                  <Label text="Tipo" GridPane.rowIndex="4" />
+                  <Label text="Valor por defecto" GridPane.rowIndex="6" />
+                  <TextField fx:id="newJSONName" promptText="Nombre del objeto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="dataType" promptText="Tipo de dato" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="foreign" promptText="Llave foranea opcional" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="defaultData" promptText="Valor por defecto" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Llave foranea" GridPane.rowIndex="5" />
+                  <TextField fx:id="newDocName" promptText="Nombre del documento" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="newStoreName" promptText="Nombre del Store" GridPane.columnIndex="1" />
+                  <Label text="Store" />
+                  <Label text="Documento" GridPane.rowIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -47,12 +58,20 @@
                </padding>
             </GridPane>
          </center>
-         <bottom>
-            <Button mnemonicParsing="false" onAction="#newStore" text="Button" BorderPane.alignment="CENTER" />
-         </bottom>
          <padding>
             <Insets bottom="10.0" />
          </padding>
+         <bottom>
+            <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newJSON" text="Crear JSON" />
+                <Button mnemonicParsing="false" onAction="#commitJSON" text="Guardar JSON" />
+              </buttons>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </ButtonBar>
+         </bottom>
       </BorderPane>
    </center>
    <top>
@@ -60,11 +79,6 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <Menu mnemonicParsing="false" text="Unspecified Menu">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#window" text="New File" />
-                    </items>
-                  </Menu>
               <MenuItem mnemonicParsing="false" onAction="#create" onMenuValidation="#create" text="New Store" />
             </items>
           </Menu>

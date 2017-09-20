@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -16,8 +17,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import Stores.JSONStoreManager;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import org.json.simple.parser.ParseException;
+
+import Stores.JSONStoreManager;
+import UserApps.UserInterface;
 
 
 public class SampleController {
@@ -30,6 +36,10 @@ public class SampleController {
 	@FXML
 	Label done;
 	
+	
+	static String a;
+	static String b;
+	
 	boolean check = true;
 	
 	@FXML
@@ -41,10 +51,25 @@ public class SampleController {
 	TextField field;
 	@FXML
 	TextField newStoreName;
+	@FXML
+	TextField newDocName;
+	@FXML
+	TextField newJSONName;
+	@FXML
+	TextField name;
+	@FXML
+	TextField dataType;
+	@FXML
+	TextField primary;
+	@FXML
+	TextField foreign;
+	@FXML
+	TextField defaultData;
 	
 	
 	@FXML
 	Button create;
+	
 	
 	
 	@FXML
@@ -52,18 +77,9 @@ public class SampleController {
 	
 	CreateWin win = new CreateWin();
 	
+	UserInterface UI = new UserInterface();
 	
 	
-	public void gen(ActionEvent event){
-		String name = "Eduardo";
-		
-		System.out.println(label0.getText());
-	
-		label0.setText(name);
-		label1.setText(name);
-		
-		
-	}
 	
 	public void window(ActionEvent event){
 		
@@ -132,13 +148,56 @@ public class SampleController {
 			
 	public void newStore(ActionEvent event){
 		
-		JSONStoreManager manager = new JSONStoreManager();
+		UI.newStore(newStoreName.getText());
 		
-		manager.addStore(newStoreName.getText());
-		
-		done.setText("Store Created!");
 	}
 
+	public void newDoc(ActionEvent event){
+		
+		try {
+			UI.newDoc(newDocName.getText());
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void newJSON(ActionEvent event) throws FileNotFoundException, IOException, ParseException{
+		
+		a = newStoreName.getText();
+		
+		System.out.println(a);
+		
+		UI.newStore(a);
+		
+		b = newDocName.getText();
+		
+		UI.newDoc(b);
+
+		
+		UI.newJSON(newJSONName.getText());
+		UI.addToJSON("nombre", newJSONName.getText());
+		UI.addToJSON("tipo", dataType.getText());
+		UI.addToJSON("primaria", newJSONName.getText());
+		UI.addToJSON("foranea", foreign.getText());
+		UI.addToJSON("default", defaultData.getText());
+		
+		UI.setStoreName(a);
+		UI.setDocName(b);
+		
+		System.out.println(UI.getDocName());
+		System.out.println(UI.getStoreName());
+		
+	}
+	
+	public void commitJSON(ActionEvent event){
+		
+		UI.commitJSON();
+		
+	}
+	
+	
 	public void create(ActionEvent event){
 		win.start();
 				

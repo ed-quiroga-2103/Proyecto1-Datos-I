@@ -55,8 +55,9 @@ public class Document {
 	}
 
 	
-	
-	//Debe ser movida a un manager
+	/*
+	 * Crea un documento nuevo	
+	 */
 	@SuppressWarnings("unchecked")
 	private void createDoc(String name) throws FileNotFoundException, IOException, ParseException{
 		
@@ -85,8 +86,7 @@ public class Document {
 		
 		obj = parser.parse(new FileReader(this.path+"/.config.json"));
 		JSONObject newJSON = (JSONObject) obj;
-		
-		
+				
 		System.out.println(newJSON.get("refs"));
 		
 		
@@ -177,18 +177,10 @@ public class Document {
 		
 		
 	}
-	
-	
-//---------------------------------------------------------------------------------------------------------
-	
-
-	
-	public static void main(String[] args) {
 		
-		
-	}
-	
-
+	/*
+	 * Crea o agrega un documento nuevo en el Store asignado. Si el Store no existe, lo crea
+	 */
 	public void newDoc(String storeName, String docName) throws FileNotFoundException, IOException, ParseException{
 		
 		JSONStoreManager manager = new JSONStoreManager();
@@ -208,7 +200,9 @@ public class Document {
 		
 	}
 
-	
+	/*
+	 * Elimina el documento
+	 */
 	public void deleteDoc(String storeName, String docName) throws FileNotFoundException, IOException, ParseException{
 		
 		
@@ -251,20 +245,14 @@ public class Document {
 		}else{System.out.println("no file");}
 		
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 //--------------------------------------------------------------------------------------------------------
+	
+	public static void main(String[] args) {
+		
+		
+	}
+	
 	
 	public String getPrimary() {
 		return primary;
