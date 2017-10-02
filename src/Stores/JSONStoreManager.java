@@ -199,8 +199,7 @@ public class JSONStoreManager {
 	 */
 	public void deleteStore(String name){
 		
-		if(deleteComprobation(name)){
-			
+		if(deleteComprobation(name)){	
 			JSONManager current =  new JSONManager(this.path+"/"+name);
 			
 			String next = (String) current.getArg(".config", "next");
@@ -288,6 +287,12 @@ public class JSONStoreManager {
 
 
 	public static void main(String[] args) {
+	
+		
+		
+		
+		
+		
 		
 	}
 

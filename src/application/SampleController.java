@@ -11,12 +11,16 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -36,6 +40,10 @@ public class SampleController {
 	@FXML
 	Label done;
 	
+	@FXML
+	static TreeView<String> tree = DirectoryViewer.a;
+	
+	static String rPath = "";
 	
 	static String a;
 	static String b;
@@ -65,6 +73,8 @@ public class SampleController {
 	TextField foreign;
 	@FXML
 	TextField defaultData;
+	@FXML
+	TextField pathText;
 	
 	
 	@FXML
@@ -194,7 +204,7 @@ public class SampleController {
 	public void commitJSON(ActionEvent event){
 		
 		UI.commitJSON();
-		
+		new DirectoryViewer().updateNodes(DirectoryViewer.a);
 	}
 	
 	
@@ -203,6 +213,18 @@ public class SampleController {
 				
 		
 	}	
+	
+	public void setPath(ActionEvent event){
+		
+		rPath = pathText.getText();
+		
+		String path = rPath;
+		
+		UI.setPath(path);
+	
+		System.out.println(path);
+	}
+	
 	
 	
 	}

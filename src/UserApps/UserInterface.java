@@ -5,8 +5,6 @@ import Stores.JSONStoreManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.print.attribute.standard.DocumentName;
-
 import org.json.simple.parser.ParseException;
 
 import Documents.Document;
@@ -20,6 +18,8 @@ public class UserInterface {
 	
 	Entity obj;
 	
+	JSONStoreManager manager =  new JSONStoreManager();
+	
 	public UserInterface() {
 	}
 	
@@ -29,9 +29,8 @@ public class UserInterface {
 	
 	public void newStore(String name){
 		
-		
-		new JSONStoreManager().addStore(name);
-		
+		manager.addStore(name);
+				
 		this.storeName = name;
 		
 	}
@@ -107,7 +106,14 @@ public class UserInterface {
 		this.obj = obj;
 	}
 
+	public void setPath(String path){
+		
+		manager.setPath(path);
+		
+		
+	}
 
+	
 
 
 }
