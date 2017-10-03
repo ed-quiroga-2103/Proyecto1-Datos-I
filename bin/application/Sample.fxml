@@ -75,6 +75,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openDelDoc" onMenuValidation="#openDelDoc" text="Delete Document" />
               <MenuItem mnemonicParsing="false" onAction="#openDelStore" onMenuValidation="#openDelStore" text="Delete Store" />
             </items>
           </Menu>

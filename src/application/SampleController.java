@@ -243,7 +243,15 @@ public class SampleController {
 		
 		this.delStoreWindow();
 		
+		
 	}
+	
+	public void openDelDoc(ActionEvent event) throws IOException{
+		
+		this.delDocWindow();
+		
+	}
+	
 	public void delStoreWindow() throws IOException{
 		Stage primaryStage = new Stage();
 		
