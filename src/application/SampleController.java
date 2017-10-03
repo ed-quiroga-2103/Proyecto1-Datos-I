@@ -3,6 +3,7 @@ package application;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -75,7 +78,10 @@ public class SampleController {
 	TextField defaultData;
 	@FXML
 	TextField pathText;
-	
+	@FXML
+	TextField delStoreField;
+	@FXML
+	TextField delDocField;
 	
 	@FXML
 	Button create;
@@ -204,7 +210,6 @@ public class SampleController {
 	public void commitJSON(ActionEvent event){
 		
 		UI.commitJSON();
-		new DirectoryViewer().updateNodes(DirectoryViewer.a);
 	}
 	
 	
@@ -224,8 +229,49 @@ public class SampleController {
 	
 		System.out.println(path);
 	}
-	
-	
+	public void deleteStore(ActionEvent event){
+		
+		UI.deleteStore(delStoreField.getText());
+		
+	}
+	public void deleteDoc(ActionEvent event) throws FileNotFoundException, IOException, ParseException{
+		
+		UI.deleteDoc(delDocField.getText(), delStoreField.getText());
+		
+	}
+	public void openDelStore(ActionEvent event) throws IOException{
+		
+		this.delStoreWindow();
+		
+	}
+	public void delStoreWindow() throws IOException{
+		Stage primaryStage = new Stage();
+		
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+
+		GridPane root = FXMLLoader.load(getClass().getResource("DeleteWindowSt.fxml"));
+		Scene scene = new Scene(root,400,200);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.showAndWait();
+		
+		
+		
+	}
+	public void delDocWindow() throws IOException{
+		Stage primaryStage = new Stage();
+		
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+
+		GridPane root = FXMLLoader.load(getClass().getResource("DeleteWindow.fxml"));
+		Scene scene = new Scene(root,400,200);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.showAndWait();
+		
+		
+		
+	}
 	
 	}
 	

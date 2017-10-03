@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.File;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
+	
 	
 	Stage stage;
 

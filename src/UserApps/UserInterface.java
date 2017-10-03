@@ -112,9 +112,17 @@ public class UserInterface {
 		
 		
 	}
-
 	
-
+	public void deleteStore(String name){
+		
+		manager.deleteStore(name);
+		
+	}
+	public void deleteDoc(String name, String store) throws FileNotFoundException, IOException, ParseException{
+		
+		new Document().deleteDoc(store, name);
+		
+	}
 
 }
 

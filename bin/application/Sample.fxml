@@ -75,7 +75,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#create" onMenuValidation="#create" text="New Store" />
+              <MenuItem mnemonicParsing="false" onAction="#openDelStore" onMenuValidation="#openDelStore" text="Delete Store" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
