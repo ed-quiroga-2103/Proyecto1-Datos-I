@@ -13,7 +13,7 @@ public class JSONStoreManager {
 	private int length;
 	private JSONArray refs = new JSONArray();
 	
-	private static String path = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
+	private String path = "/home/eduardo/workspace/LinkedDB/JSON-Stores/";
 	
 	public JSONStoreManager() {
 		
@@ -26,7 +26,7 @@ public class JSONStoreManager {
 	 */
 	private void init(){
 		
-		File config = new File("/home/eduardo/workspace/Proyecto 1/JSON-Stores/.config.json");
+		File config = new File(this.path+".config.json");
 		
 		if(config.exists()){
 			
@@ -79,7 +79,7 @@ public class JSONStoreManager {
 	 */
 	private void load() {
 		
-		String config = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
+		String config = this.path;
 		
 		JSONManager manager =  new JSONManager(config);
 		
