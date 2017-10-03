@@ -24,13 +24,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			primaryStage.setTitle("LinkedDB");
+			
 			stage = primaryStage;
 			
 			new DirectoryViewer().show();
 			this.pathWindow();
 			
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
-			Scene scene = new Scene(root,400,200);
+			Scene scene = new Scene(root,1000,800);
+			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

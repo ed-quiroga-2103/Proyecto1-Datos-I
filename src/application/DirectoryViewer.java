@@ -1,4 +1,4 @@
-package application;
+	package application;
 
 import java.io.File;
 
@@ -32,6 +32,11 @@ public class DirectoryViewer extends Application {
         
         BorderPane b = new BorderPane();
         Button c = new Button("Load Folder");
+        c.setOnAction(e -> {
+        	
+        	this.getNodes(a);
+        	
+        });
                 
         this.getNodes(a);
        

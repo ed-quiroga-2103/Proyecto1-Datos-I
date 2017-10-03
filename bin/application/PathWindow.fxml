@@ -36,7 +36,7 @@
    <bottom>
       <Pane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="10.0" mnemonicParsing="false" onAction="#setPath" text="Button" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="10.0" mnemonicParsing="false" onAction="#setPath" text="Confirm" />
          </children>
       </Pane>
    </bottom>
