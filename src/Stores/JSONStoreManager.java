@@ -13,7 +13,7 @@ public class JSONStoreManager {
 	private int length;
 	private JSONArray refs = new JSONArray();
 	
-	private String path = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
+	private static String path = "/home/eduardo/workspace/Proyecto 1/JSON-Stores/";
 	
 	public JSONStoreManager() {
 		

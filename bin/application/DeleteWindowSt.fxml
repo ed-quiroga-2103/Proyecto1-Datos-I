@@ -18,7 +18,7 @@
    </columnConstraints>
    <children>
       <TextField fx:id="delStoreField" GridPane.columnIndex="1" />
-      <Label alignment="CENTER" text="Label" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-      <Button mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Label alignment="CENTER" text="Store" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#deleteStore" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

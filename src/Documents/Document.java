@@ -209,15 +209,16 @@ public class Document {
 		
 		if(new File(new JSONStoreManager().getPath() + storeName + "/" + docName+".json").exists()){
 			
-			JSONManager manager = new JSONManager(this.path);
+			JSONManager manager = new JSONManager((new JSONStoreManager().getPath() + storeName ));
 			
 			JSONParser parser = new JSONParser();
 			
 			Object obj;
 			
-			obj = parser.parse(new FileReader(this.path+"/.config.json"));
+			obj = parser.parse(new FileReader((new JSONStoreManager().getPath() + storeName +"/.config.json")));
 			JSONObject newJSON = (JSONObject) obj;
 			
+			System.out.println(newJSON);
 			
 			String newNext = (String) manager.getArg(docName, "next");
 			
@@ -235,6 +236,8 @@ public class Document {
 			JSONArray newRefs= (JSONArray) newJSON.get("refs");
 			
 			newRefs.remove(docName);
+			
+			System.out.println(newRefs);
 			
 			manager.setArg(".config", "refs", newRefs);
 			

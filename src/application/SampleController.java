@@ -227,7 +227,7 @@ public class SampleController {
 		
 		UI.setPath(path);
 	
-		System.out.println(path);
+		System.out.println("Path is: "+path);
 	}
 	public void deleteStore(ActionEvent event){
 		

@@ -27,6 +27,7 @@ public class Main extends Application {
 			stage = primaryStage;
 			
 			new DirectoryViewer().show();
+			this.pathWindow();
 			
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
 			Scene scene = new Scene(root,400,200);
